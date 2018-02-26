@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using WebAppsLab5.Models;
 
 namespace WebAppsLab5
 {
@@ -22,6 +24,9 @@ namespace WebAppsLab5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<WebAppsLab5Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WebAppsLab5Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
