@@ -9,7 +9,7 @@
 <div>
     <h4>Movie</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-vertical">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -45,4 +45,29 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-default">Edit</a> |
     <a asp-action="Index" class="btn btn-success">Back to List</a>
+</div>
+<br />
+<div>
+    @if (Model.Reviews != null && Model.Reviews.Count != 0)
+    {
+        <h2><strong>Reviews</strong></h2>
+        <hr />
+        @foreach (var review in Model.Reviews)
+        {
+            <div class="row">
+                <div class="col-sm-4">
+                    <p>@review.Comment</p>
+                    <em>- @review.Reviewer</em>
+                </div>
+                <div class="col-sm-2">
+                    <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.ReviewID" class="btn btn-default">Edit</a>
+                    <a asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.ReviewID" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+            <hr />
+        }
+    }
+</div>
+<div>
+    <a asp-action="Create" asp-controller="Reviews" asp-route-id="@Model.ID" class="btn btn-primary">Write a Review</a>
 </div>

@@ -12,7 +12,7 @@ namespace WebAppsLab5.Controllers
     {
         public IActionResult Index()
         {
-            return Redirect("Movies");
+            return View();
         }
 
         public IActionResult About()

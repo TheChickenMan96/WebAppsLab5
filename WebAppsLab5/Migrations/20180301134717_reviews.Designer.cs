@@ -11,9 +11,10 @@ using WebAppsLab5.Models;
 namespace WebAppsLab5.Migrations
 {
     [DbContext(typeof(WebAppsLab5Context))]
-    partial class WebAppsLab5ContextModelSnapshot : ModelSnapshot
+    [Migration("20180301134717_reviews")]
+    partial class reviews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,22 +48,27 @@ namespace WebAppsLab5.Migrations
 
             modelBuilder.Entity("WebAppsLab5.Models.Review", b =>
                 {
-                    b.Property<int>("ReviewID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Comment")
-                        .IsRequired();
+                    b.Property<string>("comment");
 
-                    b.Property<int>("MovieIden");
+                    b.Property<int?>("movieID");
 
-                    b.Property<string>("MovieTitle");
+                    b.Property<string>("name");
 
-                    b.Property<string>("Reviewer")
-                        .IsRequired();
+                    b.HasKey("ID");
 
-                    b.HasKey("ReviewID");
+                    b.HasIndex("movieID");
 
                     b.ToTable("Review");
+                });
+
+            modelBuilder.Entity("WebAppsLab5.Models.Review", b =>
+                {
+                    b.HasOne("WebAppsLab5.Models.Movie", "movie")
+                        .WithMany()
+                        .HasForeignKey("movieID");
                 });
 #pragma warning restore 612, 618
         }

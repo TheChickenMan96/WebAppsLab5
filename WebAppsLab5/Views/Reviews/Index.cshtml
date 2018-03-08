@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebAppsLab5.Models.Review>
+
+@{
+    ViewData["Title"] = "Index";
+    string revDirection = (string)ViewData["ReviewerDirection"];
+    string movieDirection = (string)ViewData["MovieDirection"];
+}
+
+<h2>Reviews</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @if (revDirection == "asc")
+                    {
+                        <a asp-action="Index" asp-route-sortby="reviewer" asp-route-direction="des">@Html.DisplayNameFor(model => model.Reviewer)</a>
+                    } else
+                    {
+                        <a asp-action="Index" asp-route-sortby="reviewer" asp-route-direction="asc">@Html.DisplayNameFor(model => model.Reviewer)</a>
+                    }
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment)
+                </th>
+                <th>
+                    @if(movieDirection == "asc")
+                    {
+                        <a asp-action="Index" asp-route-sortby="movie" asp-route-direction="des">@Html.DisplayNameFor(model => model.MovieTitle)</a>
+
+                    } else
+                    {
+                        <a asp-action="Index" asp-route-sortby="movie" asp-route-direction="asc">@Html.DisplayNameFor(model => model.MovieTitle)</a>
+
+                    }
+
+</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reviewer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieTitle)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

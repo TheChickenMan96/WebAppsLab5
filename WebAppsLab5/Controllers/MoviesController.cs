@@ -68,6 +68,12 @@ namespace WebAppsLab5.Controllers
                 return NotFound();
             }
 
+            var reviews = from r in _context.Review
+                          select r;
+
+            reviews = reviews.Where(s => s.MovieIden == movie.ID);
+            movie.Reviews = await reviews.ToListAsync();
+
             return View(movie);
         }
 
@@ -82,10 +88,12 @@ namespace WebAppsLab5.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,Rating,Reviews")] Movie movie)
         {
             if (ModelState.IsValid)
             {
+                
+
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -114,7 +122,7 @@ namespace WebAppsLab5.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating,Reviews")] Movie movie)
         {
             if (id != movie.ID)
             {
@@ -168,6 +176,12 @@ namespace WebAppsLab5.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            var reviews = from r in _context.Review
+                          select r;
+
+            reviews = reviews.Where(s => s.MovieIden == movie.ID);
+            _context.Review.RemoveRange(reviews);
+
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

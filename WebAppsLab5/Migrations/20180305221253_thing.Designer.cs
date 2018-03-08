@@ -11,9 +11,10 @@ using WebAppsLab5.Models;
 namespace WebAppsLab5.Migrations
 {
     [DbContext(typeof(WebAppsLab5Context))]
-    partial class WebAppsLab5ContextModelSnapshot : ModelSnapshot
+    [Migration("20180305221253_thing")]
+    partial class thing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,15 +51,11 @@ namespace WebAppsLab5.Migrations
                     b.Property<int>("ReviewID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Comment")
-                        .IsRequired();
+                    b.Property<string>("Comment");
 
                     b.Property<int>("MovieIden");
 
-                    b.Property<string>("MovieTitle");
-
-                    b.Property<string>("Reviewer")
-                        .IsRequired();
+                    b.Property<string>("Reviewer");
 
                     b.HasKey("ReviewID");
 

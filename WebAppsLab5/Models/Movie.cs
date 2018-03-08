@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebAppsLab5.Models
@@ -13,11 +14,11 @@ namespace WebAppsLab5.Models
 
         [Display(Name = "Release Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}")]
         [Required(ErrorMessage = "Please enter the appropriate release date for this movie")]
         public DateTime ReleaseDate { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$", ErrorMessage ="Please enter a valid genre")]
         [Required(ErrorMessage = "Please enter a genre for this movie")]
         [StringLength(30)]
         public string Genre { get; set; }
@@ -29,5 +30,7 @@ namespace WebAppsLab5.Models
 
         [Required(ErrorMessage = "Please select a rating for this movie")]
         public string Rating { get; set; }
+
+        public List<Review> Reviews;
     }
 }
